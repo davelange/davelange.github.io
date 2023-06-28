@@ -8,6 +8,7 @@ const BlogPost = z.object({
     .string()
     .or(z.date())
     .transform((val) => new Date(val)),
+  canonical: z.string()
 });
 
 const blog = defineCollection({

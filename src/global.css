@@ -8,7 +8,7 @@ body {
   height: 100%;
   font-family: "Inter", sans-serif;
   font-size: 16px;
-  line-height: 1.4;
+  line-height: 1.65;
 }
 
 *,
@@ -38,6 +38,7 @@ h1 {
 
 p {
   margin-bottom: 1rem;
+  letter-spacing: -0.01rem;
 }
 
 ol,
@@ -48,4 +49,19 @@ ul {
 img {
   max-width: 100%;
   height: auto;
+}
+
+.article h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.article h2 {
+  margin: 1.25rem 0 0.5rem;
+  font-weight: 700;
+}
+.article pre {
+  padding: 1rem;
+  border-radius: 1rem;
 }

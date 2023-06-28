@@ -1,5 +1,6 @@
 ---
 import { CollectionEntry, getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog");
@@ -14,4 +15,9 @@ const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<Content />
+<Base canonical={post.data.canonical} title={post.data.title}>
+    <article class="article">
+        <Content />
+    </article>
+</Base>
+

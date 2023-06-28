@@ -1,11 +1,15 @@
 ---
-title: 'Infinite looping React component'
+title: Spotlight effect with JS and CSS
 publishedAt: April 2022
 description: Spotlight effects can be a pretty creative way of revealing content on your website. And they’re surprisingly easy to create with a little JS and CSS!
+canonical: https://blog.finiam.com/blog/spotlight-effect-with-js-and-css
 ---
 
 
 # Spotlight effect with JS and CSS
+
+_This was originally written for [Finiam](https://blog.finiam.com/blog/spotlight-effect-with-js-and-css)_
+
 Spotlight effects can be a pretty creative way of revealing content on your website. And they're surprisingly easy to create with a little JS and CSS!
 
 <iframe src="https://codesandbox.io/embed/spotlight-zyg9vu?fontsize=14&hidenavigation=1&theme=dark&view=preview"

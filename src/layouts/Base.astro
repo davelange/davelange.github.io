@@ -1,6 +1,13 @@
 ---
 import Header from "../components/Header.astro";
 import "../global.css";
+
+export type Props = {
+	canonical?: string;
+	title: string;
+};
+
+const { canonical, title } = Astro.props;
 ---
 
 <html lang="en">
@@ -9,7 +16,7 @@ import "../global.css";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>{title || "Dave Lange"}</title>
 
 		<!--fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,6 +25,9 @@ import "../global.css";
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
 			rel="stylesheet"
 		/>
+
+		<!-- canonical -->
+		{canonical && <link rel="canonical" href={canonical} />}
 	</head>
 	<body>
 		<div class="container">

@@ -1,11 +1,14 @@
 ---
-title: 'Infinite looping React component'
+title: Infinite looping React component
 publishedAt: January 2022
 description: Need some content to repeat across the screen and endlessly loop round and round? In this blog post, I take a look at how to create an infinite looper with React JS and CSS animations.
+canonical: https://blog.finiam.com/blog/infinite-looping-react-component
 ---
 
 
 # Infinite looping React component
+
+_This was originally written for [Finiam](https://blog.finiam.com/blog/infinite-looping-react-component)_
 
 Not long ago, a project I was working on came up with an unusual requirement - basically a piece of content should be infinitely sliding across the screen. It could be anything - text, images - you name it, and depending on the situation it should slide either left or right, and at different speeds. So why not create an infinite loop component?
 
