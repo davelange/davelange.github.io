@@ -1,0 +1,230 @@
+---
+title: 'Infinite looping React component'
+description: 'Looping'
+---
+
+
+# Infinite looping React component
+
+Not long ago, a project I was working on came up with an unusual requirement - basically a piece of content should be infinitely sliding across the screen. It could be anything - text, images - you name it, and depending on the situation it should slide either left or right, and at different speeds. So why not create an infinite loop component?
+
+This is more or less what it looks like.
+
+<iframe height="300" height="500" style="width: 100%;" scrolling="no" title="Infinite looper" src="https://codepen.io/davelange_/embed/mdMwyoM?default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/davelange_/pen/mdMwyoM">
+  Infinite looper</a> by David Lange (<a href="https://codepen.io/davelange_">@davelange_</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+An additional requirement was that the content should be horizontally repeated as many times as needed to cover the entire width of its parent element (most often the full width of the viewport). A large image would perhaps only need a couple of instances, whereas something smaller might need some more. I wanted to be able to just drop some content into a component, pass in the speed and direction, and let it deal with the rest.
+
+```tsx
+<InfiniteLooper speed="1" direction="left">
+    // the stuff you want to loop
+</InfiniteLooper>
+```
+
+The component should be responsible for making the content repeat across the screen, as well as animating. First though, let's look at the animation.
+
+## Animating the content
+
+What we need to do is simply translate each instance of the content 100% horizontally. When you do that with several instances side by side, the end position of each instance will be the initial position of the next one, before snapping back to its initial state. This creates the impression of continuous horizontal motion. 
+
+Remember, translating an element 100% means 100% of _it's own width_, not the parent element's width.
+
+So, let's get started:
+
+```tsx
+function InfiniteLooper({
+    speed,
+    direction,
+    children,
+  }: {
+    speed: number;
+    direction: "right" | "left";
+    children: React.ReactNode;
+  }) {
+    const [looperInstances, setLooperInstances] = useState(1);
+    const outerRef = useRef<HTMLDivElement>(null);
+    const innerRef = useRef<HTMLDivElement>(null);
+  
+    return (
+      <div className="looper" ref={outerRef}>
+        <div className="looper__innerList" ref={innerRef}>
+          {[...Array(looperInstances)].map((_, ind) => (
+            <div
+              key={ind}
+              className="looper__listInstance"
+              style={{
+                animationDuration: `${speed}s`,
+                animationDirection: direction === "right" ? "reverse" : "normal",
+              }}
+            >
+              {children}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+```
+
+```css
+@keyframes slideAnimation {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.looper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.looper__innerList {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+}
+
+.looper__listInstance {
+  display: flex;
+  width: max-content;
+
+  animation: slideAnimation linear infinite;
+}
+```
+
+`looperInstances` defines how many times the content will be repeated. To get started we can just hardcode it, but further on we'll see how to get it to work dynamically. As for CSS, we have a keyframe animation to translate from 0% to -100%, with the duration and direction set by the props we pass in. 
+
+Basically, if we're sliding from left to right, the content translates from -100% to 0%, and the opposite happens for right to left.
+
+It might seem strange to go from -100 to 0 when we want to travel _right_. Why not just start at 0 and go to 100? However, if we did that, then the leftmost instance of content would just leave a blank space to its left while it translated to 100, breaking the whole impression of looping. By starting at -100, that leftmost item starts _offscreen_, and never leaves a blank space behind it.
+
+Also note that the `speed` prop is used directly by the animation duration. This means that higher values equal slower speeds.
+
+You may notice that the animation can be slightly janky at times in Firefox. Honestly, I haven't found a way to significantly improve this yet, though so far it hasn't proven to be too much of a problem. Either way, it's something to address eventually.
+
+## Repeating the content
+
+Next we have to work out how many times the content needs to be repeated to cover the entire area we place it in. The basic idea is to compare the width of the `innerRef` and `outerRef` and set `looperInstances` accordingly. Something like this:
+
+```tsx
+export default function InfiniteLooper({
+    speed,
+    direction,
+    children,
+  }: {
+    speed: number;
+    direction: "right" | "left";
+    children: React.ReactNode;
+  }) {
+    const [looperInstances, setLooperInstances] = useState(1);
+    const outerRef = useRef<HTMLDivElement>(null);
+    const innerRef = useRef<HTMLDivElement>(null);
+
+    const setupInstances = useCallback(() => {
+        if (!innerRef?.current || !outerRef?.current) return;
+
+        const { width } = innerRef.current.getBoundingClientRect();
+
+        const { width: parentWidth } = outerRef.current.getBoundingClientRect();
+
+        const instanceWidth = width / innerRef.current.children.length;
+
+        if (width < parentWidth + instanceWidth) {
+            setLooperInstances(looperInstances + Math.ceil(parentWidth / width));
+        }
+  }, [looperInstances]);
+
+    useEffect(() => {
+        setupInstances();
+    }, []);
+  
+    return (
+      <div className="looper" ref={outerRef}>
+        <div className="looper__innerList" ref={innerRef}>
+          {[...Array(looperInstances)].map((_, ind) => (
+            <div
+              key={ind}
+              className="looper__listInstance"
+              style={{
+                animationDuration: `${speed}s`,
+                animationDirection: direction === "right" ? "reverse" : "normal",
+              }}
+            >
+              {children}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+```
+
+The `setupInstances` function compares the outer and inner ref widths. If the `innerWidth` (the width of all our content) is less than the width of the parent plus the one instance of content, that means we need to increase `looperInstances`. So we work out approximately how many more instances we need with `parentWidth / width`. We use that extra `instanceWidth` to provide a safety margin - without that you can sometimes have a "blank" space at the edges of the component.
+
+## What about responsiveness?
+
+Great, so now we've got a working component! But it's not quite responsive yet. It will work fine on different screens, but what if the container element's width is increased for some reason? (Yes, by "some reason", I mostly mean developers obsessively resizing their screens). 
+
+This can be addressed by adding a `resize` event listener that calls `setupInstances` again:
+
+```tsx
+useEffect(() => {
+    window.addEventListener("resize", setupInstances);
+
+    return () => {
+      window.removeEventListener("resize", setupInstances);
+    };
+}, []);
+```
+
+But there's a catch: if `looperInstances` is incremented the new elements will be rendered, but the CSS animation will be out of sync, and you'll see things randomly overlapping or flickering. To fix this, we need to somehow reset the animation. Forcing a re-render with `useState` won't work. In this case I set the animation property of each instance to "none" by setting `data-animate="false"` on their parent, before toggling it back to "true" - resetting the animations. Just note that you need a slight delay when toggling `data-animate`, forcing a reflow.
+
+```tsx
+function resetAnimation() {
+    if (innerRef?.current) {
+      innerRef.current.setAttribute("data-animate", "false");
+
+      setTimeout(() => {
+        if (innerRef?.current) {
+          innerRef.current.setAttribute("data-animate", "true");
+        }
+      }, 50);
+    }
+  }
+
+function setupInstances() {
+    ...
+
+    resetAnimation();
+}
+```
+
+And the CSS updates:
+```css
+.looper__innerList[data-animate="true"] .looper__listInstance {
+  animation: slideAnimation linear infinite;   
+}
+
+.looper__listInstance {
+  display: flex;
+  width: max-content;
+
+  animation: none;
+}
+```
+
+Here I chose to set the data attribute only on a single element (`.looper__innerList`), changing it's children's animation via CSS. You could also manipulate each child element directly in the `resetAnimation` function, though personally I find the former solution simpler.
+
+## Wrapping up
+
+And that's it! We could still take it further - we could pass in props to pause and play the animation via the `animation-play-state` property, or have a neater solution for the animation speed, rather than just passing in seconds for the `animation-duration`. Who knows, we could even add vertical animation.
+
+Hopefully this demonstrates how you can use simple CSS animations in a React component to achieve whatever strange visual requirements your projects have.
+
+Stay safe!
