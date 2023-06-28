@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import "../global.css";
 ---
 
 <html lang="en">
@@ -9,9 +10,27 @@ import Header from "../components/Header.astro";
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
+
+		<!--fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
-		<Header />
-		<slot />
+		<div class="container">
+			<Header />
+			<slot />
+		</div>
 	</body>
 </html>
+
+<style>
+	.container {
+		max-width: 42rem;
+		margin: 0 auto;
+		padding-top: 2rem;
+	}
+</style>

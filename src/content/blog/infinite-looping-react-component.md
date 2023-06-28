@@ -1,6 +1,7 @@
 ---
 title: 'Infinite looping React component'
-description: 'Looping'
+publishedAt: January 2022
+description: Need some content to repeat across the screen and endlessly loop round and round? In this blog post, I take a look at how to create an infinite looper with React JS and CSS animations.
 ---
 
 

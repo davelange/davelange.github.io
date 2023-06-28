@@ -2,11 +2,28 @@
 import HeaderLink from "./HeaderLink.astro";
 ---
 
-<header>
-    <h2>Dave Lange</h2>
+<header class="header">
+    <h2><a class="home-link" href="/" title="Home"> Dave Lange</a></h2>
 
-    <nav>
-        <HeaderLink href="/">Home</HeaderLink>
-        <HeaderLink href="/blog">Blog</HeaderLink>
+    <nav class="nav">
+        <HeaderLink href="/" title="Home">Home</HeaderLink>
+        <HeaderLink href="/blog" title="Blog">Blog</HeaderLink>
     </nav>
 </header>
+
+<style>
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 2rem;
+    }
+    .home-link {
+        text-decoration: none;
+        font-size: 1.5rem;
+    }
+    .nav {
+        display: flex;
+        gap: 1rem;
+    }
+</style>

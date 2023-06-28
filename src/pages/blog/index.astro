@@ -1,10 +1,29 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
+import BlogCard from "../../components/BlogCard.astro";
 
-const posts = await getCollection("blog");
+const posts = (await getCollection("blog")).sort(
+    (a, b) => a.data.publishedAt.valueOf() - b.data.publishedAt.valueOf()
+);
 ---
 
 <Base>
-    {posts.map((post) => <a href={`/blog/${post.slug}`}>{post.data.title}</a>)}
+    <h1 class="title">Blog</h1>
+
+    <section class="list">
+        {posts.map((post) => <BlogCard {...post} />)}
+    </section>
 </Base>
+
+<style>
+    .title {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+</style>

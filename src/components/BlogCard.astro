@@ -1,0 +1,19 @@
+---
+import type { getCollection, CollectionEntry } from "astro:content";
+
+export type Props = CollectionEntry<"blog">;
+
+const { data, slug } = Astro.props;
+---
+
+<section>
+    <a class="title" href={`/blog/${slug}`}>{data.title}</a>
+    <p>{data.description}</p>
+</section>
+
+<style>
+    .title {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+</style>
