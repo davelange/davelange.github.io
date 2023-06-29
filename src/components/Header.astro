@@ -1,13 +1,42 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
+import Dark from "./icons/Dark.astro";
+import Light from "./icons/Light.astro";
 ---
+
+<script>
+    const themeBtn = document.querySelector("[data-js='theme-toggle']");
+
+    themeBtn?.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+        const isDark = document.documentElement.classList.contains("dark");
+        window.localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+</script>
 
 <header class="header">
     <h2><a class="home-link" href="/" title="Home"> Dave Lange</a></h2>
 
     <nav class="nav">
-        <HeaderLink href="/" title="Home">Home</HeaderLink>
-        <HeaderLink href="/blog" title="Blog">Blog</HeaderLink>
+        <HeaderLink href="/" title="Home" aria-label="Home">Home</HeaderLink>
+        <HeaderLink href="/blog" title="Blog" aria-label="Blog">
+            Blog
+        </HeaderLink>
+        <button
+            type="button"
+            data-js="theme-toggle"
+            class="theme-btn"
+            data-theme="dark"
+            aria-label="Toggle theme"
+            title="Toggle theme"
+        >
+            <span class="icon icon--dark">
+                <Dark />
+            </span>
+            <span class="icon icon--light">
+                <Light />
+            </span>
+        </button>
     </nav>
 </header>
 
@@ -25,5 +54,31 @@ import HeaderLink from "./HeaderLink.astro";
     .nav {
         display: flex;
         gap: 1rem;
+    }
+    .theme-btn {
+        position: relative;
+        border: 0;
+        background: none;
+        color: var(--accent);
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+    }
+    .icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 1;
+        transition: all 0.5s 0.3s ease;
+    }
+    :global(html.dark) .icon--light {
+        transition-delay: 0s;
+        translate: 0 20px;
+        opacity: 0;
+    }
+    :global(html:not(.dark)) .icon--dark {
+        transition-delay: 0s;
+        translate: 0 -20px;
+        opacity: 0;
     }
 </style>

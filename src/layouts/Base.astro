@@ -29,6 +29,21 @@ const { canonical, title } = Astro.props;
 
 		<!-- canonical -->
 		{canonical && <link rel="canonical" href={canonical} />}
+
+		<!-- theme -->
+		<script is:inline>
+			(() => {
+				const theme = localStorage.getItem("theme");
+				const defaultToDark =
+					!theme &&
+					window.matchMedia("(prefers-color-scheme: dark)").matches;
+				if (theme === "dark" || defaultToDark) {
+					document.documentElement.classList.add("dark");
+				} else {
+					document.documentElement.classList.remove("dark");
+				}
+			})();
+		</script>
 	</head>
 	<body>
 		<div class="container">
