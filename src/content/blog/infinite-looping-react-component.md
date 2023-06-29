@@ -1,7 +1,7 @@
 ---
 title: Infinite looping React component
 publishedAt: January 2022
-description: Need some content to repeat across the screen and endlessly loop round and round? In this blog post, I take a look at how to create an infinite looper with React JS and CSS animations.
+description: A look into how flexible and useful stores can be in Svelte. Simple stores, custom stores, stores of stores - there's a lot of options out there.
 canonical: https://blog.finiam.com/blog/infinite-looping-react-component
 ---
 

@@ -18,7 +18,7 @@ const sideProject = defineCollection({
     description: z.string(),
     repo: z.string(),
     url: z.string(),
-  }),
+  }),   
 });
 
 export const collections = { blog, "side-projects": sideProject };
