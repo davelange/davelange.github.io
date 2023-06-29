@@ -1,5 +1,6 @@
 ---
-import type { getCollection, CollectionEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { routes } from "../lib/routes";
 
 export type Props = CollectionEntry<"blog">;
 
@@ -8,7 +9,7 @@ const { data, slug } = Astro.props;
 
 <section>
     <h3>
-        <a class="title" href={`/blog/${slug}`}>{data.title}</a>
+        <a class="title" href={routes.blogPost(slug)}>{data.title}</a>
     </h3>
     <p>{data.description}</p>
 </section>

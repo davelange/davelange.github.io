@@ -8,7 +8,7 @@ const currentTheme = document.documentElement.classList.contains("dark")
 const colors = {
   background: "#e2e8f0",
   starsOnDark: "#fff",
-  starsOnLight: "#172554",
+  starsOnLight: "#94a3b8",
   primary1: "#3730a3",
   primary2: "#4338ca",
   secondary: "#831843",

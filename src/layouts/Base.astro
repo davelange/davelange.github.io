@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { routes } from "../lib/routes";
 import "../global.css";
 
 export type Props = {
@@ -21,7 +22,7 @@ const base = {
 <html lang="en" class="dark">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href={routes.public("favicon.ico")} />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title || base.title}</title>
