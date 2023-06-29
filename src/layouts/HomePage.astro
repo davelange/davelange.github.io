@@ -1,0 +1,15 @@
+---
+import Splash from "../components/Splash.astro";
+import Base from "./Base.astro";
+
+export type Props = {
+    canonical?: string;
+    title: string;
+    description?: string;
+};
+---
+
+<Base {...Astro.props}>
+    <slot />
+    <Splash client:idle />
+</Base>

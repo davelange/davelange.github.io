@@ -1,6 +1,6 @@
 ---
 title: "Home"
-layout: "../layouts/Base.astro"
+layout: "../layouts/HomePage.astro"
 ---
 
 # Hi there!

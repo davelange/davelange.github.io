@@ -1,0 +1,26 @@
+<script>
+    import { animate } from "../lib/scenery";
+    import { theme } from "../lib/theme";
+
+    animate();
+</script>
+
+<canvas class="zdog-canvas" width="600" height="400"></canvas>
+
+<style>
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    canvas {
+        margin: 2rem 0;
+        opacity: 0;
+        max-width: 90%;
+
+        animation: fadeIn 1s 2s ease forwards;
+    }
+</style>

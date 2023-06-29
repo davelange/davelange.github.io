@@ -5,13 +5,11 @@ import Light from "./icons/Light.astro";
 ---
 
 <script>
-    const themeBtn = document.querySelector("[data-js='theme-toggle']");
+    import { theme } from "../lib/theme";
 
-    themeBtn?.addEventListener("click", () => {
-        document.documentElement.classList.toggle("dark");
-        const isDark = document.documentElement.classList.contains("dark");
-        window.localStorage.setItem("theme", isDark ? "dark" : "light");
-    });
+    document
+        .querySelector("[data-js='theme-toggle']")
+        ?.addEventListener("click", () => theme.toggle());
 </script>
 
 <header class="header">
@@ -87,5 +85,11 @@ import Light from "./icons/Light.astro";
         transition-delay: 0s;
         translate: 0 -20px;
         opacity: 0;
+    }
+
+    @media screen and (max-width: 40rem) {
+        .header {
+            flex-direction: column;
+        }
     }
 </style>
