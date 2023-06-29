@@ -95,7 +95,7 @@ getRandomPositions(12).forEach((star) => {
 });
 
 // Loop fn
-export function animate() {
+function animate() {
   planet.rotate.y += 0.03;
   moonBase.rotate.y += 0.02;
 
@@ -107,8 +107,13 @@ export function animate() {
 }
 
 // Render
-export function init() {
-  illo.updateRenderGraph();
+export function initScenery() {
+  if (window.innerWidth < 500) {
+    illo.setSize(300, 300 / 1.5);
+    illo.zoom = 0.9;
+  }
+
+  animate();
 }
 
 theme.subs.push((theme) => {

@@ -13,7 +13,7 @@ I've been working at [Finiam](https://finiam.com) for the past couple of years, 
 
 ---
 
-## Open source things
+## Open source
 
 I've also contributed to some open source projects and events, such as:
 
@@ -35,4 +35,4 @@ Coimbra Blockchain kindly invited me to give a talk on [_dApp Frontends_](https:
 
 ### [Falcone Options](https://falcone.finiam.com/)
 
-An educational resource we build at Finiam, onboarding users to what options trading is, and [Carmine Finance](https://carmine.finance/).
+An educational resource we built at Finiam, onboarding users to what options trading is, and [Carmine Finance](https://carmine.finance/).
