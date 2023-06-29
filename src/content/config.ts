@@ -1,21 +1,24 @@
-import { ZodType } from "astro/zod";
 import { defineCollection, z } from "astro:content";
 
-const BlogPost = z.object({
-  title: z.string(),
-  description: z.string(),
-  publishedAt: z
-    .string()
-    .or(z.date())
-    .transform((val) => new Date(val)),
-  canonical: z.string()
-});
-
 const blog = defineCollection({
-  // Type-check frontmatter using a schema
-  schema: BlogPost,
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    publishedAt: z
+      .string()
+      .or(z.date())
+      .transform((val) => new Date(val)),
+    canonical: z.string(),
+  }),
 });
 
-export type BlogPost = z.infer<typeof BlogPost>;
+const sideProject = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    repo: z.string(),
+    url: z.string(),
+  }),
+});
 
-export const collections = { blog };
+export const collections = { blog, "side-projects": sideProject };

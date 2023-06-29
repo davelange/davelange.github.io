@@ -1,0 +1,36 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = await getCollection("side-projects");
+---
+
+<Base
+    title="Side projects"
+    description="Some side projects, experiments, and other random things."
+>
+    <header class="header">
+        <h1 class="title">Side Projects</h1>
+        <p>Some side projects, experiments, and other random things.</p>
+    </header>
+
+    <section class="list">
+        {projects.map((item) => <ProjectCard {...item} />)}
+    </section>
+</Base>
+
+<style>
+    .header {
+        margin-bottom: 2rem;
+    }
+    .title {
+        font-size: 1.5rem;
+    }
+    .list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+</style>

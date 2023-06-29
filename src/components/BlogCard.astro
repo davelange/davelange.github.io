@@ -7,7 +7,9 @@ const { data, slug } = Astro.props;
 ---
 
 <section>
-    <a class="title" href={`/blog/${slug}`}>{data.title}</a>
+    <h3>
+        <a class="title" href={`/blog/${slug}`}>{data.title}</a>
+    </h3>
     <p>{data.description}</p>
 </section>
 

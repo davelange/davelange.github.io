@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from "astro:content";
+import ExternalLink from "./icons/ExternalLink.astro";
+
+type Props = CollectionEntry<"side-projects">;
+
+const { data } = Astro.props;
+
+function prettifyUrl(url: string) {
+    let res = url.replace("https://", "");
+
+    if (res.endsWith("/")) res = res.slice(0, -1);
+
+    return res;
+}
+
+const post = Astro.props;
+const { Content } = await post.render();
+---
+
+<section>
+    <h3 class="title">
+        {data.title}
+    </h3>
+    <Content />
+
+    <div class="links">
+        <a
+            href={data.repo}
+            target="_blank"
+            rel="noopener external"
+            title="Github"
+            aria-label="Github"
+        >
+            Github <ExternalLink />
+        </a>
+        <a
+            href={data.url}
+            target="_blank"
+            rel="noopener external"
+            title="Link"
+            aria-label="Link"
+        >
+            {prettifyUrl(data.url)}
+            <ExternalLink />
+        </a>
+    </div>
+</section>
+
+<style>
+    .title {
+        color: var(--accent);
+        font-size: 1.5rem;
+    }
+    .links {
+        display: flex;
+        gap: 1rem;
+        --icon-size: 1rem;
+    }
+    .links a {
+        display: flex;
+        gap: 0.25rem;
+        align-items: center;
+    }
+</style>
