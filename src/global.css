@@ -81,10 +81,22 @@ svg {
 }
 
 .article h2 {
-  margin: 1.25rem 0 0.5rem;
+  margin: 1.75rem 0 0.5rem;
   font-weight: 700;
 }
 .article pre {
   padding: 1rem;
   border-radius: 1rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+.article p > code {
+  background-color: #cbd5e1;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.dark .article p > code {
+  background-color: #24292e;
 }
