@@ -6,18 +6,40 @@ import "../global.css";
 export type Props = {
 	canonical?: string;
 	title: string;
+	description?: string;
 };
 
-const { canonical, title } = Astro.props;
+const { canonical, title, description } = Astro.props;
+
+const base = {
+	title: "Dave Lange",
+	description:
+		"I'm a frontend developer. Here you can check out things I've written and worked on.",
+};
 ---
 
 <html lang="en" class="dark">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title || "Dave Lange"}</title>
+		<title>{title || base.title}</title>
+		<meta name="description" content={description || base.description} />
+		<meta property="og:title" content={title || base.title} />
+		<meta
+			property="og:description"
+			content={description || base.description}
+		/>
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url.href} />
+		<meta name="twitter:card" content="summary" />
+		<meta property="twitter:url" content={Astro.url.href} />
+		<meta name="twitter:title" content={title || base.title} />
+		<meta
+			name="twitter:description"
+			content={description || base.description}
+		/>
 
 		<!--fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -41,6 +63,7 @@ const { canonical, title } = Astro.props;
 					document.documentElement.classList.add("dark");
 				} else {
 					document.documentElement.classList.remove("dark");
+					document.fa;
 				}
 			})();
 		</script>
@@ -61,7 +84,8 @@ const { canonical, title } = Astro.props;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-		max-width: 42rem;
+		width: 42rem;
+		max-width: 90%;
 		margin: 0 auto;
 		padding: 2rem 0;
 	}
