@@ -3,6 +3,7 @@ title: Parallel
 description: A threeJS scene build with react-three-fiber, with some custom animation.
 repo: https://github.com/davelange/parallel
 url: https://parallel-bay.vercel.app/
+order: 3
 ---
 
 A threeJS scene build with react-three-fiber. I wanted to experiment with the idea of a bunch of objects just floating around, that snap to a given position based on user interaction. 

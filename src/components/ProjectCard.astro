@@ -19,35 +19,41 @@ const { Content } = await post.render();
 ---
 
 <section>
-    <h3 class="title">
-        {data.title}
-    </h3>
+    <header class="header">
+        <h3 class="title">
+            {data.title}
+        </h3>
+        <div class="links">
+            <a
+                href={data.repo}
+                target="_blank"
+                rel="noopener external"
+                title="Github"
+                aria-label="Github"
+            >
+                Github <ExternalLink />
+            </a>
+            <a
+                href={data.url}
+                target="_blank"
+                rel="noopener external"
+                title="Link"
+                aria-label="Link"
+            >
+                {prettifyUrl(data.url)}
+                <ExternalLink />
+            </a>
+        </div>
+    </header>
     <Content />
-
-    <div class="links">
-        <a
-            href={data.repo}
-            target="_blank"
-            rel="noopener external"
-            title="Github"
-            aria-label="Github"
-        >
-            Github <ExternalLink />
-        </a>
-        <a
-            href={data.url}
-            target="_blank"
-            rel="noopener external"
-            title="Link"
-            aria-label="Link"
-        >
-            {prettifyUrl(data.url)}
-            <ExternalLink />
-        </a>
-    </div>
 </section>
 
 <style>
+    .header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
     .title {
         color: var(--accent);
         font-size: 1.5rem;
@@ -55,11 +61,18 @@ const { Content } = await post.render();
     .links {
         display: flex;
         gap: 1rem;
-        --icon-size: 1rem;
+        --icon-size: 0.75rem;
     }
     .links a {
         display: flex;
         gap: 0.25rem;
+        font-size: 0.75rem;
         align-items: center;
+        background: var(--accent);
+        color: var(--background);
+        padding: 4px 8px;
+        border-radius: 1rem;
+        text-decoration: none;
+        line-height: 1;
     }
 </style>
