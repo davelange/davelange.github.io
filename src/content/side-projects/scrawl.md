@@ -1,6 +1,6 @@
 ---
 title: Scrawl
-description: An Obsidian style encrypted note taking app
+description: An encrypted note taking app
 repo: https://github.com/finiam/scrawl
 url: https://le-scrawl.netlify.app
 order: 1

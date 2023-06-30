@@ -31,7 +31,8 @@ const { Content } = await post.render();
                 title="Github"
                 aria-label="Github"
             >
-                Github <ExternalLink />
+                <span>Github</span>
+                <ExternalLink />
             </a>
             <a
                 href={data.url}
@@ -40,7 +41,7 @@ const { Content } = await post.render();
                 title="Link"
                 aria-label="Link"
             >
-                {prettifyUrl(data.url)}
+                <span>{prettifyUrl(data.url)}</span>
                 <ExternalLink />
             </a>
         </div>
@@ -68,11 +69,24 @@ const { Content } = await post.render();
         gap: 0.25rem;
         font-size: 0.75rem;
         align-items: center;
-        background: var(--accent);
-        color: var(--background);
+        background: var(--accent-soft);
+        color: var(--accent);
         padding: 4px 8px;
         border-radius: 1rem;
         text-decoration: none;
         line-height: 1;
+        max-width: 100px;
+    }
+    .links span {
+        flex: 0 1 90%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    @media screen and (min-width: 40rem) {
+        .links a {
+            max-width: 400px;
+        }
     }
 </style>

@@ -35,30 +35,31 @@ import { routes } from "../lib/routes";
         >
             Side Projects
         </HeaderLink>
-        <button
-            type="button"
-            data-js="theme-toggle"
-            class="theme-btn"
-            data-theme="dark"
-            aria-label="Toggle theme"
-            title="Toggle theme"
-        >
-            <span class="icon icon--dark">
-                <Dark />
-            </span>
-            <span class="icon icon--light">
-                <Light />
-            </span>
-        </button>
     </nav>
+    <button
+        type="button"
+        data-js="theme-toggle"
+        class="theme-btn"
+        data-theme="dark"
+        aria-label="Toggle theme"
+        title="Toggle theme"
+    >
+        <span class="icon icon--dark">
+            <Dark />
+        </span>
+        <span class="icon icon--light">
+            <Light />
+        </span>
+    </button>
 </header>
 
 <style>
     .header {
         display: flex;
-        justify-content: space-between;
-        align-items: baseline;
+        flex-wrap: wrap;
+        align-items: center;
         margin-bottom: 2rem;
+        gap: 1rem;
     }
     .home-link {
         text-decoration: none;
@@ -67,6 +68,7 @@ import { routes } from "../lib/routes";
     .nav {
         display: flex;
         gap: 1rem;
+        order: 3;
     }
     .theme-btn {
         position: relative;
@@ -76,6 +78,7 @@ import { routes } from "../lib/routes";
         cursor: pointer;
         width: 24px;
         height: 24px;
+        order: 2;
     }
     .icon {
         position: absolute;
@@ -95,9 +98,13 @@ import { routes } from "../lib/routes";
         opacity: 0;
     }
 
-    @media screen and (max-width: 40rem) {
-        .header {
-            flex-direction: column;
+    @media screen and (min-width: 40rem) {
+        .theme-btn {
+            order: 3;
+        }
+        .nav {
+            order: 2;
+            margin-left: auto;
         }
     }
 </style>

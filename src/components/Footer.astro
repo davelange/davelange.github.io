@@ -38,16 +38,20 @@ import Email from "../components/icons/Email.astro";
     >
         <Email />
     </a>
-    <p class="copy">© 2023 davelange</p>
+    <span class="copy">© 2023 davelange</span>
 </footer>
 
 <style>
     .footer {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         gap: 2rem;
         margin-top: 3rem;
+        padding-bottom: 1rem;
         --icon-size: 1.25rem;
+    }
+    .footer a {
+        line-height: 1;
     }
     .copy {
         margin-left: auto;
