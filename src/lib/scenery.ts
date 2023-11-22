@@ -23,7 +23,7 @@ function getRandomPositions(amount: number) {
   return new Array(amount).fill(0).map(() => ({
     x: randomNegativeOrPositive(400),
     y: randomNegativeOrPositive(200),
-    speed: Math.random() / 70,
+    speed: Math.random() / 200,
   }));
 }
 
@@ -96,8 +96,8 @@ getRandomPositions(12).forEach((star) => {
 
 // Loop fn
 function animate() {
-  planet.rotate.y += 0.03;
-  moonBase.rotate.y += 0.02;
+  planet.rotate.y += 0.005;
+  moonBase.rotate.y += 0.01;
 
   stars.map((star) => (star.anchor.rotate.y += star.speed));
 
@@ -111,6 +111,7 @@ export function initScenery() {
   if (window.innerWidth < 500) {
     illo.setSize(300, 300 / 1.5);
     illo.zoom = 0.9;
+    illo.dragRotate = false;
   }
 
   animate();
