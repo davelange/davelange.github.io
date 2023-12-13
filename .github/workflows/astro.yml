@@ -23,13 +23,15 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v3
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
       - name: Build TinaCMS
         env:
           PUBLIC_TINA_CLIENT_ID: ${{ secrets.PUBLIC_TINA_CLIENT_ID }}
           PUBLIC_TINA_TOKEN: ${{ secrets.PUBLIC_TINA_TOKEN }}
         run: yarn build-cms
-      - name: Install, build, and upload your site
-        uses: withastro/action@v0
+      - name: Build Astro site
+        run: yarn build
         # with:
         # path: . # The root location of your Astro project inside the repository. (optional)
         # node-version: 16 # The specific version of Node that should be used to build your site. Defaults to 16. (optional)
