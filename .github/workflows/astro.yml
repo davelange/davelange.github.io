@@ -36,8 +36,8 @@ jobs:
     steps:
     - name: Build TinaCMS
       env:
-        TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
-        TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+        PUBLIC_TINA_CLIENT_ID: ${{ secrets.PUBLIC_TINA_CLIENT_ID }}
+        PUBLIC_TINA_TOKEN: ${{ secrets.PUBLIC_TINA_TOKEN }}
       run: yarn build
     - name: Deploy to GitHub Pages
       id: deployment
