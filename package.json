@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "yarn tinacms dev -c \"astro dev\"",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "yarn tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
