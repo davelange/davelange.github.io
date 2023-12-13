@@ -1,15 +1,17 @@
 ---
 title: Using custom Svelte stores
-publishedAt: March 2023
-description: Need some content to repeat across the screen and endlessly loop round and round? In this blog post, I take a look at how to create an infinite looper with React JS and CSS animations.
-canonical: https://blog.finiam.com/blog/using-custom-svelte-stores
+description: >
+  A look into how flexible and useful stores can be in Svelte. Simple stores,
+  custom stores, stores of stores - there's a lot of options out there.
+publishedAt: 2023-03-01T00:00:00.000Z
+canonical: 'https://blog.finiam.com/blog/using-custom-svelte-stores'
 ---
 
 # Using custom Svelte stores
 
-_This was originally written for [Finiam](https://blog.finiam.com/blog/using-custom-svelte-stores)_
+*This was originally written for [Finiam](https://blog.finiam.com/blog/using-custom-svelte-stores)*
 
-With Svelte, we get an out of the box solution for state management - stores. According to the [docs](https://svelte.dev/docs#run-time-svelte-store), a store is any object with a subscribe, unsubscribe, and (optionally) a set method. Svelte provides the functions to easily create readable, writable, or derived stores. 
+With Svelte, we get an out of the box solution for state management - stores. According to the [docs](https://svelte.dev/docs#run-time-svelte-store), a store is any object with a subscribe, unsubscribe, and (optionally) a set method. Svelte provides the functions to easily create readable, writable, or derived stores.
 
 At it's most simple:
 
@@ -49,6 +51,7 @@ Then we could use it like this in a component:
 {/each}
 </ul>
 ```
+
 By using the dollar sign to access the store, we're subscribing to updates in the store's value, and our component will react to any change and show the updated ingredient list (you can [check the docs on the dollar sign syntax here](https://svelte.dev/docs#component-format-script-4-prefix-stores-with-$-to-access-their-values), but it basically uses the store's `subscribe` function, and unsubscribes when appropriate). Outside of components, we can manually subscribe:
 
 ```typescript
@@ -105,9 +108,10 @@ export default pizzaStore;
 
 Basically, we wrap a store in a function that holds additional logic. By returning the `subscribe` method, we can subscribe to the store's value in our component, same as before. But we can also return other functions, defining how we want the outside world to interact with our store. You can think of it as adding methods to interact with the underlying writable store - like an API.
 
-As you can see, stores are very flexible, and you can actually combine them with other state management libs. For that, I highly recommend you check out this post on [using stores with Zustand](https://jfranciscosousa.com/blog/using-zustand-with-svelte), a very nice state management lib. 
+As you can see, stores are very flexible, and you can actually combine them with other state management libs. For that, I highly recommend you check out this post on [using stores with Zustand](https://jfranciscosousa.com/blog/using-zustand-with-svelte), a very nice state management lib.
 
 ## Wrapping the wrappers
+
 We can actually extend this concept of wrapping a store. Say we have several stores, and we want them all to have some shared functionality, like syncing changes to local storage, or a remote DB. We can create a base store that receives the writable store and wrapper function we wrote previously, and passes some base functions into that wrapper:
 
 ```typescript
@@ -187,7 +191,6 @@ export default pizzaStore;
 
 As you can see, the wrapper contains all the same logic as before, except now it also receives `_syncToLocal`. In this way, we can move that sort of common functionality to another layer, where it can be easily reused by other stores. Let's say you also have cupcakes in your app:
 
-
 ```typescript
 const store = writable<CupcakeStore>({
   toppings: [],
@@ -218,21 +221,23 @@ update((store) => ({
     foo: bar    
 }))
 ```
+
 we can just write:
 
 ```typescript
 _set({ foo: bar })
 ```
 
-It might not seem like a huge improvement, but it's quite useful when you want to update values multiple times in a function, for example. 
+It might not seem like a huge improvement, but it's quite useful when you want to update values multiple times in a function, for example.
 
 ## Instances
 
 So far `pizzaStore` has been a standalone store, assuming our app will only have one pizza. However it can be useful to have instantiable stores - imagine your app allows the user to create as many pizzas as they want. There are a couple of things needed:
- 1. Allow the creation of new pizzas through `pizzaStore`
- 2. Store all the pizzas somewhere, so we can access them elsewhere in our app.
 
-The first issue is pretty simple, we simply export the function. For the second issue, one approach is to use a _store of stores_. It's a custom store that holds an object of `string: PizzaStore`:
+1. Allow the creation of new pizzas through `pizzaStore`
+2. Store all the pizzas somewhere, so we can access them elsewhere in our app.
+
+The first issue is pretty simple, we simply export the function. For the second issue, one approach is to use a *store of stores*. It's a custom store that holds an object of `string: PizzaStore`:
 
 ```typescript
 // allPizzasStore.ts
@@ -336,9 +341,10 @@ And then we use it:
 
 ```
 
-Any pizza we now create is accessible in the rest of the app via the `allPizzaStore`! 
+Any pizza we now create is accessible in the rest of the app via the `allPizzaStore`!
 
 ## Wrapping up
+
 Hopefully this demonstrates how flexible and useful stores can be in Svelte. Often, a simple store may be enough, but when necessary, we can easily adapt our stores to fit our needs.
 
 Thanks for reading!
