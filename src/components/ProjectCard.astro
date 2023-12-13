@@ -57,17 +57,18 @@ const { Content } = await post.render();
     }
     .title {
         color: var(--accent);
-        font-size: 1.5rem;
+        font-size: var(--24px);
+        font-weight: 700;
     }
     .links {
         display: flex;
-        gap: 1rem;
+        gap: var(--16px);
         --icon-size: 0.75rem;
     }
     .links a {
         display: flex;
         gap: 0.25rem;
-        font-size: 0.75rem;
+        font-size: var(--12px);
         align-items: center;
         background: var(--accent-soft);
         color: var(--accent);

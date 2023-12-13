@@ -3,6 +3,17 @@
   --foreground: #0c0a09;
   --accent: #4338ca;
   --accent-soft: #a5b4fc;
+
+  --12px: 0.75rem;
+  --14px: 0.875rem;
+  --16px: 1rem;
+  --20px: 1.25rem;
+  --22px: 1.275rem;
+  --24px: 1.5rem;
+  --28px: 1.75rem;
+  --32px: 2rem;
+  --36px: 2.25rem;
+  --48px: 3rem;
 }
 
 .dark {
@@ -13,54 +24,28 @@
 }
 
 html {
-  box-sizing: border-box;
   height: 100%;
 }
 
 body {
   height: 100%;
   font-family: "Inter", sans-serif;
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: var(--16px);
+  line-height: 1.7;
   background-color: var(--background);
   color: var(--foreground);
   transition: background-color 0.2s ease;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
 p {
-  margin: 0;
-  padding: 0;
-  font-weight: normal;
+  margin-bottom: 1em;
 }
 
 a {
   color: var(--accent);
 }
 
-h1 {
-  margin-bottom: 1rem;
-}
-
-p {
-  margin-bottom: 1rem;
-  letter-spacing: -0.01rem;
-}
-
 img {
-  max-width: 100%;
   height: auto;
 }
 
@@ -74,29 +59,64 @@ hr {
   margin: 2rem 0;
 }
 
+/* Article prose text */
 .article h1 {
-  margin-bottom: 2rem;
-  font-size: 2rem;
+  font-size: var(--32px);
   font-weight: 700;
+  line-height: 1.5;
+  margin: 1.5em 0 1em;
+  color: var(--accent);
 }
 
 .article h2 {
-  margin: 1.75rem 0 0.5rem;
+  font-size: var(--24px);
   font-weight: 700;
-}
-.article pre {
-  padding: 1rem;
-  border-radius: 1rem;
-  margin-left: -1rem;
-  margin-right: -1rem;
-}
-.article p > code {
-  background-color: #cbd5e1;
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-size: 0.95rem;
+  margin: 1.5em 0 1em;
+  color: var(--accent);
 }
 
-.dark .article p > code {
+.article h3 {
+  font-size: var(--20px);
+  font-weight: 700;
+  margin: 1.5em 0 1em;
+  color: var(--accent);
+}
+
+.article p {
+  margin: 1em 0;
+}
+
+.article pre {
+  padding: 16px;
+  border-radius: 1rem;
+  margin: 1.5em -1rem;
+}
+
+.article img {
+  margin: var(--24px) auto;
+}
+
+/* Article inline code */
+.article p > code {
   background-color: #24292e;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: var(--14px);
+}
+
+/* Article code blocks */
+pre code {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+pre code::-webkit-scrollbar-thumb {
+  background: #f5f5f499;
+  border-radius: 2px;
+}
+
+pre code::-webkit-scrollbar {
+  height: 4px;
+  background-color: inherit;
 }

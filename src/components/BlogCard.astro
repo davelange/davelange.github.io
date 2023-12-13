@@ -12,11 +12,23 @@ const { data, slug } = Astro.props;
         <a class="title" href={routes.blogPost(slug)}>{data.title}</a>
     </h3>
     <p>{data.description}</p>
+    <a href={routes.blogPost(slug)} class="read-more">Read more &rarr;</a>
 </section>
 
 <style>
     .title {
         display: block;
-        margin-bottom: 0.5rem;
+        font-size: var(--24px);
+        font-weight: 700;
+        margin-bottom: 0.5em;
+        text-decoration: none;
+        line-height: 1.5;
+    }
+    .read-more {
+        color: var(--foreground);
+        text-decoration: none;
+        margin-top: 1em;
+        display: block;
+        font-weight: 700;
     }
 </style>
