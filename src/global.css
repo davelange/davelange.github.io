@@ -1,6 +1,7 @@
 :root {
   --background: #e2e8f0;
   --foreground: #0c0a09;
+  --foreground-soft: #0c0a0933;
   --accent: #4338ca;
   --accent-soft: #a5b4fc;
 
@@ -19,6 +20,7 @@
 .dark {
   --background: #0c0a09;
   --foreground: #f5f5f4;
+  --foreground-soft: #f5f5f433;
   --accent: #818cf8;
   --accent-soft: #312e81;
 }
@@ -98,7 +100,8 @@ hr {
 
 /* Article inline code */
 .article p > code {
-  background-color: #24292e;
+  background-color: var(--foreground-soft);
+  color: var(--foreground);
   padding: 2px 4px;
   border-radius: 4px;
   font-size: var(--14px);

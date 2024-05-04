@@ -4,7 +4,10 @@
     initScenery();
 </script>
 
-<canvas class="zdog-canvas" width="600" height="400"></canvas>
+<section class="container">
+    <canvas class="zdog-canvas" width="600" height="400"></canvas>
+</section>
+
 
 <style>
     @keyframes fadeIn {
@@ -16,11 +19,13 @@
         }
     }
     .container {
-        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: center;
     }
     .zdog-canvas {
         display: block;
-        margin: 2rem auto;
+        margin:  auto;
         opacity: 0;
         max-width: 90%;
 
